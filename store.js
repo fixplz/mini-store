@@ -12,9 +12,9 @@ Store.prototype.get = function () {
   return this.state
 }
 
-Store.prototype.set = function (val) {
-  this.state = val
-  this.subscribers.forEach(function (func) { func(val) })
+Store.prototype.set = function (state) {
+  this.state = state
+  this.subscribers.forEach(function (func) { func(state) })
 }
 
 Store.prototype.modify = function (func) {
