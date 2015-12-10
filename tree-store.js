@@ -32,6 +32,10 @@ TreeStore.prototype.set = function set (val) {
     return state.change(key, val) })
 }
 
+TreeStore.prototype.remove = function remove () {
+  return this.set(null)
+}
+
 TreeStore.prototype.modify = function modify (func) {
   var key = this.key
   return this.store.modify(function (state) {

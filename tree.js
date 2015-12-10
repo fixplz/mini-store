@@ -75,10 +75,19 @@ Tree.prototype.change = function change (path, val) {
     var newval = val
 
   var copy = Tree(this)
-
-  copy[key] = newval
-
+  setProperty(copy, key, newval)
   return copy
+}
+
+function setProperty (obj, prop, val) {
+  if(val == null)
+    delete obj[prop]
+  else
+    obj[prop] = val
+}
+
+Tree.prototype.remove = function remove (path) {
+  return this.change(path, null)
 }
 
 Tree.prototype.modify = function modify (path, func) {
@@ -95,10 +104,10 @@ Tree.prototype.patch = function patch (patch) {
 
   var _this = this
   L.each(copy, function (_, k) {
-    copy[k] =
+    setProperty(copy, k,
       isTree(_this[k]) && isTree(patch[k])
       ? _this[k].patch(patch[k])
-      : patch[k] == null ? _this[k] : patch[k]
+      : patch[k] == null ? _this[k] : patch[k])
   })
 
   return copy
